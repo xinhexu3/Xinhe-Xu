@@ -57,11 +57,12 @@ d. describe the differences between parts **b** and **c**.
 median(cars$dist)
 mean(cars$speed)
 summary(cars)
-plot(x = cars$dist, 
-     y = cars$speed, 
+plot(x = cars$speed, 
+     y = cars$dist, 
      type = "p", 
      axes = TRUE, 
-     xlab = "distance", 
+     xlab = "speed", 
+     ylab = "distance",
      main = "Speed and Stopping Distances of Cars")
 ```
 
@@ -79,9 +80,9 @@ d. the plot of the stopping distance (vertical axis) versus the speed (horizonta
 iris
 x <- (iris$Sepal.Length[which(iris$Species == "versicolor")][25])
 y <- (iris$Sepal.Length[which(iris$Species == "versicolor")][26])
-sum(x,y)
+sum(x,y)/2
 #b
-sum(iris$Petal.Length[which(iris$Petal.Length >= 0 && iris$Petal.Length <= 3)])
+sum(iris$Petal.Length[which(iris$Petal.Length >= 0 & iris$Petal.Length <= 3)])
 #c
 x<- iris$Sepal.Length[which(iris$Species == "virginica")][10]
 x*4/(2^3)
@@ -134,6 +135,6 @@ a. a screenshot that shows your personal repo in GitHub Enterprise
 b. a screenshot of the Git terminal (or shell) open within RStudio
 ![](/Users/mac/Desktop/stat385 hw1.2 .png)
 c. a screenshot of RStudio with the 4 panes basic such that there's a Git tab in the top right pane, and the files in the repo in the bottom right pane
-
+![](/Users/mac/Desktop/stat385hw1.c.png)
 d. the push/pull pop up window of RStudio with the final commit message of your homework submission.
 ![](/Users/mac/Desktop/stat385hw1.3.png)
