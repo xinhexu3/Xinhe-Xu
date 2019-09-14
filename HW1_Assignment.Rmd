@@ -38,9 +38,14 @@ Below you will find problems for you to complete as an individual. It is fine to
 
 ### 1. With the `data(pressure)` dataset in R, do the following:
 ```{r}
+#a
 ? median
+#b
 head(pressure, n = 10)
+#c
 head(pressure)
+#d
+#b shows 10 rows but c shows 6 rows.
 ```
 
 
@@ -54,9 +59,13 @@ d. describe the differences between parts **b** and **c**.
 
 ### 2. With the `data(cars)` dataset in R, compute the following:
 ```{r}
+#a
 median(cars$dist)
+#b
 mean(cars$speed)
+#c
 summary(cars)
+#d
 plot(x = cars$speed, 
      y = cars$dist, 
      type = "p", 
@@ -77,6 +86,7 @@ d. the plot of the stopping distance (vertical axis) versus the speed (horizonta
 ### 3. With the `data(iris)` dataset in R, do the following calculations:
 
 ```{r}
+#a
 iris
 x <- (iris$Sepal.Length[which(iris$Species == "versicolor")][25])
 y <- (iris$Sepal.Length[which(iris$Species == "versicolor")][26])
