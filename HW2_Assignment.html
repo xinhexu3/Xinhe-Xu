@@ -217,7 +217,7 @@ head(mat)</code></pre>
 <pre class="r"><code>#1, b
 z &lt;- rep(c(1,3), each = 250)
 newOne = cbind(mat,z)
-dat = data.frame(newOne)</code></pre>
+dat = as.data.frame(newOne)</code></pre>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>reassign <code>z</code> as a factor variable within the data frame <code>dat</code>. Run the command <code>str(dat)</code>. You should see something like:</li>
 </ol>
@@ -263,7 +263,7 @@ dat$y &lt;- dat$x * 2 + as.numeric(levels(dat$z)[dat$z]) + e
 zlist &lt;- split(dat, f = dat$z)
 mean(dat$y[dat$z == '1'])
 mean(dat$y[dat$z == '3'])
-# the level'3' has a higher mean in'y' than the level '1'.</code></pre>
+# the level'3' is 3.017832 which has a higher mean in'y' than the level '1'.The the mean of level '1' is 0.9426005</code></pre>
 <p>Determine which level of <code>z</code> has a higher mean in <code>y</code>. Report your results.</p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>The fourth line of the code in part a generates <code>y</code> as a linear function of the numeric variable <code>x</code> and the factor variable <code>z</code>. Can you determine that the linear modeling assumptions are satisfied for the regression of <code>y</code> on <code>x</code> and <code>z</code>? Explain why or why not in detail. <strong>Hint</strong>: read the documentation of the <code>rnorm</code> function and examine its defaults. The linear modeling assumptions are: 1) there is a linear relationship between the response variable and the predictor variables; 2) there is no auto-correlation (cases are independent); 3) errors are normally distributed; 4) the standard deviation of the errors are constant across all predictor variables (the values of <code>x</code> and the levels of <code>z</code> in this problem). There is no need to use numerical or graphical summaries to verify whether or not these modeling assumptions hold, all of the necessary information is contained in the code chunk in part <strong>a</strong>.</li>
@@ -301,7 +301,7 @@ newB = list(newA)
 list1 =append(newB, newList)
 list1</code></pre>
 <pre><code>## [[1]]
-## [1] 379 821
+## [1]  32 997
 ## 
 ## [[2]]
 ## [1] &quot;a&quot;
@@ -326,21 +326,33 @@ newc = paste(newLista,newAa)
 ma = cbind(newLista, newAa, newc)
 ma</code></pre>
 <pre><code>##       newLista newAa newc   
-##  [1,] &quot;a&quot;      379   &quot;a 379&quot;
-##  [2,] &quot;b&quot;      821   &quot;b 821&quot;
-##  [3,] &quot;c&quot;      379   &quot;c 379&quot;
-##  [4,] &quot;d&quot;      821   &quot;d 821&quot;
-##  [5,] &quot;e&quot;      379   &quot;e 379&quot;
-##  [6,] &quot;a&quot;      821   &quot;a 821&quot;
-##  [7,] &quot;b&quot;      379   &quot;b 379&quot;
-##  [8,] &quot;c&quot;      821   &quot;c 821&quot;
-##  [9,] &quot;d&quot;      379   &quot;d 379&quot;
-## [10,] &quot;e&quot;      821   &quot;e 821&quot;</code></pre>
+##  [1,] &quot;a&quot;      32    &quot;a 32&quot; 
+##  [2,] &quot;b&quot;      997   &quot;b 997&quot;
+##  [3,] &quot;c&quot;      32    &quot;c 32&quot; 
+##  [4,] &quot;d&quot;      997   &quot;d 997&quot;
+##  [5,] &quot;e&quot;      32    &quot;e 32&quot; 
+##  [6,] &quot;a&quot;      997   &quot;a 997&quot;
+##  [7,] &quot;b&quot;      32    &quot;b 32&quot; 
+##  [8,] &quot;c&quot;      997   &quot;c 997&quot;
+##  [9,] &quot;d&quot;      32    &quot;d 32&quot; 
+## [10,] &quot;e&quot;      997   &quot;e 997&quot;</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>add a 4th column to the matrix from part <strong>c</strong> that is a randomized ordering of the pairs of the 3rd column</li>
 </ol>
 <pre class="r"><code>newc1 = sample(newc)
-newMa = cbind(ma, newc1)</code></pre>
+newMa = cbind(ma, newc1)
+newMa</code></pre>
+<pre><code>##       newLista newAa newc    newc1  
+##  [1,] &quot;a&quot;      32    &quot;a 32&quot;  &quot;d 32&quot; 
+##  [2,] &quot;b&quot;      997   &quot;b 997&quot; &quot;d 997&quot;
+##  [3,] &quot;c&quot;      32    &quot;c 32&quot;  &quot;a 32&quot; 
+##  [4,] &quot;d&quot;      997   &quot;d 997&quot; &quot;b 32&quot; 
+##  [5,] &quot;e&quot;      32    &quot;e 32&quot;  &quot;a 997&quot;
+##  [6,] &quot;a&quot;      997   &quot;a 997&quot; &quot;c 32&quot; 
+##  [7,] &quot;b&quot;      32    &quot;b 32&quot;  &quot;e 32&quot; 
+##  [8,] &quot;c&quot;      997   &quot;c 997&quot; &quot;e 997&quot;
+##  [9,] &quot;d&quot;      32    &quot;d 32&quot;  &quot;b 997&quot;
+## [10,] &quot;e&quot;      997   &quot;e 997&quot; &quot;c 997&quot;</code></pre>
 </div>
 <div id="use-the-ccso-bookings-data-to-accomplish-the-following" class="section level3">
 <h3>4. Use the CCSO Bookings Data to accomplish the following:</h3>

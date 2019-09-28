@@ -28,7 +28,7 @@ b. run the command `z <- rep(c(1,3), each = 250)`.  Combine `mat` and `z`.  Conv
 #1, b
 z <- rep(c(1,3), each = 250)
 newOne = cbind(mat,z)
-dat = data.frame(newOne)
+dat = as.data.frame(newOne)
 ```
 
 c. reassign `z` as a factor variable within the data frame `dat`.  Run the command `str(dat)`.  You should see something like:
@@ -77,7 +77,7 @@ dat$y <- dat$x * 2 + as.numeric(levels(dat$z)[dat$z]) + e
 zlist <- split(dat, f = dat$z)
 mean(dat$y[dat$z == '1'])
 mean(dat$y[dat$z == '3'])
-# the level'3' has a higher mean in'y' than the level '1'.
+# the level'3' is 3.017832 which has a higher mean in'y' than the level '1'.The the mean of level '1' is 0.9426005
 ```
 
 Determine which level of `z` has a higher mean in `y`.  Report your results.
@@ -119,6 +119,7 @@ d. add a 4th column to the matrix from part **c** that is a randomized ordering 
 ```{r}
 newc1 = sample(newc)
 newMa = cbind(ma, newc1)
+newMa
 ```
 
 
