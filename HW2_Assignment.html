@@ -301,7 +301,7 @@ newB = list(newA)
 list1 =append(newB, newList)
 list1</code></pre>
 <pre><code>## [[1]]
-## [1]  32 997
+## [1] 847 950
 ## 
 ## [[2]]
 ## [1] &quot;a&quot;
@@ -326,16 +326,16 @@ newc = paste(newLista,newAa)
 ma = cbind(newLista, newAa, newc)
 ma</code></pre>
 <pre><code>##       newLista newAa newc   
-##  [1,] &quot;a&quot;      32    &quot;a 32&quot; 
-##  [2,] &quot;b&quot;      997   &quot;b 997&quot;
-##  [3,] &quot;c&quot;      32    &quot;c 32&quot; 
-##  [4,] &quot;d&quot;      997   &quot;d 997&quot;
-##  [5,] &quot;e&quot;      32    &quot;e 32&quot; 
-##  [6,] &quot;a&quot;      997   &quot;a 997&quot;
-##  [7,] &quot;b&quot;      32    &quot;b 32&quot; 
-##  [8,] &quot;c&quot;      997   &quot;c 997&quot;
-##  [9,] &quot;d&quot;      32    &quot;d 32&quot; 
-## [10,] &quot;e&quot;      997   &quot;e 997&quot;</code></pre>
+##  [1,] &quot;a&quot;      847   &quot;a 847&quot;
+##  [2,] &quot;b&quot;      950   &quot;b 950&quot;
+##  [3,] &quot;c&quot;      847   &quot;c 847&quot;
+##  [4,] &quot;d&quot;      950   &quot;d 950&quot;
+##  [5,] &quot;e&quot;      847   &quot;e 847&quot;
+##  [6,] &quot;a&quot;      950   &quot;a 950&quot;
+##  [7,] &quot;b&quot;      847   &quot;b 847&quot;
+##  [8,] &quot;c&quot;      950   &quot;c 950&quot;
+##  [9,] &quot;d&quot;      847   &quot;d 847&quot;
+## [10,] &quot;e&quot;      950   &quot;e 950&quot;</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>add a 4th column to the matrix from part <strong>c</strong> that is a randomized ordering of the pairs of the 3rd column</li>
 </ol>
@@ -343,16 +343,16 @@ ma</code></pre>
 newMa = cbind(ma, newc1)
 newMa</code></pre>
 <pre><code>##       newLista newAa newc    newc1  
-##  [1,] &quot;a&quot;      32    &quot;a 32&quot;  &quot;d 32&quot; 
-##  [2,] &quot;b&quot;      997   &quot;b 997&quot; &quot;d 997&quot;
-##  [3,] &quot;c&quot;      32    &quot;c 32&quot;  &quot;a 32&quot; 
-##  [4,] &quot;d&quot;      997   &quot;d 997&quot; &quot;b 32&quot; 
-##  [5,] &quot;e&quot;      32    &quot;e 32&quot;  &quot;a 997&quot;
-##  [6,] &quot;a&quot;      997   &quot;a 997&quot; &quot;c 32&quot; 
-##  [7,] &quot;b&quot;      32    &quot;b 32&quot;  &quot;e 32&quot; 
-##  [8,] &quot;c&quot;      997   &quot;c 997&quot; &quot;e 997&quot;
-##  [9,] &quot;d&quot;      32    &quot;d 32&quot;  &quot;b 997&quot;
-## [10,] &quot;e&quot;      997   &quot;e 997&quot; &quot;c 997&quot;</code></pre>
+##  [1,] &quot;a&quot;      847   &quot;a 847&quot; &quot;d 950&quot;
+##  [2,] &quot;b&quot;      950   &quot;b 950&quot; &quot;c 950&quot;
+##  [3,] &quot;c&quot;      847   &quot;c 847&quot; &quot;a 847&quot;
+##  [4,] &quot;d&quot;      950   &quot;d 950&quot; &quot;e 950&quot;
+##  [5,] &quot;e&quot;      847   &quot;e 847&quot; &quot;c 847&quot;
+##  [6,] &quot;a&quot;      950   &quot;a 950&quot; &quot;e 847&quot;
+##  [7,] &quot;b&quot;      847   &quot;b 847&quot; &quot;b 847&quot;
+##  [8,] &quot;c&quot;      950   &quot;c 950&quot; &quot;b 950&quot;
+##  [9,] &quot;d&quot;      847   &quot;d 847&quot; &quot;a 950&quot;
+## [10,] &quot;e&quot;      950   &quot;e 950&quot; &quot;d 847&quot;</code></pre>
 </div>
 <div id="use-the-ccso-bookings-data-to-accomplish-the-following" class="section level3">
 <h3>4. Use the CCSO Bookings Data to accomplish the following:</h3>
@@ -426,10 +426,10 @@ dim(newPeople1)</code></pre>
 <li>show only the bookings for people who have employment status as “student” booked after the year 2012 residing in Danville and show the data dimension</li>
 </ol>
 <pre class="r"><code>newPeople2 = newData[newData$`EMPLOYMENT STATUS` == &quot;Student&quot;
-           &amp; newData$`BOOKING DATE` &gt; &quot;2012-12-31&quot;
-           &amp; newData$`CITY` != &quot;DANVILLE&quot;]
+           &amp; newData$`BOOKING DATE` &gt; (&quot;2012-12-31&quot;)
+           &amp; newData$`CITY` == &quot;DANVILLE&quot;]
 dim(newPeople2)</code></pre>
-<pre><code>## [1] 2462   35</code></pre>
+<pre><code>## [1] 22 35</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>show only the bookings for Asian people residing in the cities of Champaign or Urbana and show the data dimension</li>
 </ol>

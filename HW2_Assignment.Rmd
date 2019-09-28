@@ -179,8 +179,8 @@ dim(newPeople1)
 c. show only the bookings for people who have employment status as "student" booked after the year 2012 residing in Danville and show the data dimension
 ```{r}
 newPeople2 = newData[newData$`EMPLOYMENT STATUS` == "Student"
-           & newData$`BOOKING DATE` > "2012-12-31"
-           & newData$`CITY` != "DANVILLE"]
+           & newData$`BOOKING DATE` > ("2012-12-31")
+           & newData$`CITY` == "DANVILLE"]
 dim(newPeople2)
 ```
 
