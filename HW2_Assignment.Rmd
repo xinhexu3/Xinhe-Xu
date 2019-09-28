@@ -29,6 +29,7 @@ b. run the command `z <- rep(c(1,3), each = 250)`.  Combine `mat` and `z`.  Conv
 z <- rep(c(1,3), each = 250)
 newOne = cbind(mat,z)
 dat = as.data.frame(newOne)
+head(newOne)
 ```
 
 c. reassign `z` as a factor variable within the data frame `dat`.  Run the command `str(dat)`.  You should see something like:
@@ -62,6 +63,7 @@ e. remove the rows of `dat` corresponding to lowest 100 values of `x`.
 numberhund = sort.default(dat$x)[100]
 i= dat[which(dat$x > numberhund),]
 dat = i
+head(dat)
 ```
 
 ### 2. With the `dat` dataset in problem 1, do the following:

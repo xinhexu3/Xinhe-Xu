@@ -217,7 +217,15 @@ head(mat)</code></pre>
 <pre class="r"><code>#1, b
 z &lt;- rep(c(1,3), each = 250)
 newOne = cbind(mat,z)
-dat = as.data.frame(newOne)</code></pre>
+dat = as.data.frame(newOne)
+head(newOne)</code></pre>
+<pre><code>##      x y z
+## [1,] 1 1 1
+## [2,] 2 1 1
+## [3,] 3 1 1
+## [4,] 4 1 1
+## [5,] 5 1 1
+## [6,] 6 1 1</code></pre>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>reassign <code>z</code> as a factor variable within the data frame <code>dat</code>. Run the command <code>str(dat)</code>. You should see something like:</li>
 </ol>
@@ -248,7 +256,15 @@ $ z: Factor w/ 2 levels &quot;1&quot;,&quot;3&quot;: 1 1 1 1 1 1 1 1 1 1 ...</co
 <pre class="r"><code>#1.e
 numberhund = sort.default(dat$x)[100]
 i= dat[which(dat$x &gt; numberhund),]
-dat = i</code></pre>
+dat = i
+head(dat)</code></pre>
+<pre><code>##       x y z
+## 101 101 1 1
+## 102 102 1 1
+## 103 103 1 1
+## 104 104 1 1
+## 105 105 1 1
+## 106 106 1 1</code></pre>
 </div>
 <div id="with-the-dat-dataset-in-problem-1-do-the-following" class="section level3">
 <h3>2. With the <code>dat</code> dataset in problem 1, do the following:</h3>
@@ -301,7 +317,7 @@ newB = list(newA)
 list1 =append(newB, newList)
 list1</code></pre>
 <pre><code>## [[1]]
-## [1] 847 950
+## [1] 110 270
 ## 
 ## [[2]]
 ## [1] &quot;a&quot;
@@ -326,16 +342,16 @@ newc = paste(newLista,newAa)
 ma = cbind(newLista, newAa, newc)
 ma</code></pre>
 <pre><code>##       newLista newAa newc   
-##  [1,] &quot;a&quot;      847   &quot;a 847&quot;
-##  [2,] &quot;b&quot;      950   &quot;b 950&quot;
-##  [3,] &quot;c&quot;      847   &quot;c 847&quot;
-##  [4,] &quot;d&quot;      950   &quot;d 950&quot;
-##  [5,] &quot;e&quot;      847   &quot;e 847&quot;
-##  [6,] &quot;a&quot;      950   &quot;a 950&quot;
-##  [7,] &quot;b&quot;      847   &quot;b 847&quot;
-##  [8,] &quot;c&quot;      950   &quot;c 950&quot;
-##  [9,] &quot;d&quot;      847   &quot;d 847&quot;
-## [10,] &quot;e&quot;      950   &quot;e 950&quot;</code></pre>
+##  [1,] &quot;a&quot;      110   &quot;a 110&quot;
+##  [2,] &quot;b&quot;      270   &quot;b 270&quot;
+##  [3,] &quot;c&quot;      110   &quot;c 110&quot;
+##  [4,] &quot;d&quot;      270   &quot;d 270&quot;
+##  [5,] &quot;e&quot;      110   &quot;e 110&quot;
+##  [6,] &quot;a&quot;      270   &quot;a 270&quot;
+##  [7,] &quot;b&quot;      110   &quot;b 110&quot;
+##  [8,] &quot;c&quot;      270   &quot;c 270&quot;
+##  [9,] &quot;d&quot;      110   &quot;d 110&quot;
+## [10,] &quot;e&quot;      270   &quot;e 270&quot;</code></pre>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>add a 4th column to the matrix from part <strong>c</strong> that is a randomized ordering of the pairs of the 3rd column</li>
 </ol>
@@ -343,16 +359,16 @@ ma</code></pre>
 newMa = cbind(ma, newc1)
 newMa</code></pre>
 <pre><code>##       newLista newAa newc    newc1  
-##  [1,] &quot;a&quot;      847   &quot;a 847&quot; &quot;d 950&quot;
-##  [2,] &quot;b&quot;      950   &quot;b 950&quot; &quot;c 950&quot;
-##  [3,] &quot;c&quot;      847   &quot;c 847&quot; &quot;a 847&quot;
-##  [4,] &quot;d&quot;      950   &quot;d 950&quot; &quot;e 950&quot;
-##  [5,] &quot;e&quot;      847   &quot;e 847&quot; &quot;c 847&quot;
-##  [6,] &quot;a&quot;      950   &quot;a 950&quot; &quot;e 847&quot;
-##  [7,] &quot;b&quot;      847   &quot;b 847&quot; &quot;b 847&quot;
-##  [8,] &quot;c&quot;      950   &quot;c 950&quot; &quot;b 950&quot;
-##  [9,] &quot;d&quot;      847   &quot;d 847&quot; &quot;a 950&quot;
-## [10,] &quot;e&quot;      950   &quot;e 950&quot; &quot;d 847&quot;</code></pre>
+##  [1,] &quot;a&quot;      110   &quot;a 110&quot; &quot;e 110&quot;
+##  [2,] &quot;b&quot;      270   &quot;b 270&quot; &quot;d 270&quot;
+##  [3,] &quot;c&quot;      110   &quot;c 110&quot; &quot;a 110&quot;
+##  [4,] &quot;d&quot;      270   &quot;d 270&quot; &quot;c 110&quot;
+##  [5,] &quot;e&quot;      110   &quot;e 110&quot; &quot;c 270&quot;
+##  [6,] &quot;a&quot;      270   &quot;a 270&quot; &quot;d 110&quot;
+##  [7,] &quot;b&quot;      110   &quot;b 110&quot; &quot;a 270&quot;
+##  [8,] &quot;c&quot;      270   &quot;c 270&quot; &quot;b 270&quot;
+##  [9,] &quot;d&quot;      110   &quot;d 110&quot; &quot;e 270&quot;
+## [10,] &quot;e&quot;      270   &quot;e 270&quot; &quot;b 110&quot;</code></pre>
 </div>
 <div id="use-the-ccso-bookings-data-to-accomplish-the-following" class="section level3">
 <h3>4. Use the CCSO Bookings Data to accomplish the following:</h3>
