@@ -1,6 +1,6 @@
 ---
 title: "STAT 385 HW4"
-author: ""
+author: "Xinhe Xu"
 date: "Due by 12:00 PM on 10/26/2019"
 output: html_document
 ---
@@ -27,7 +27,7 @@ scaler <- function(m) {
 }
 ```
 ```{r}
-testa = data.frame(x = 10:20, y = 30:40)
+testa = data.frame(x = 1:5, y = c(3.1, 5, 7.2,10,9))
 scaler(testa)
 testb = data.frame(x = letters[1:13], y = letters[14:26])
 scaler(testb)
@@ -223,13 +223,23 @@ Completion of select in-class tasks will be worth 1 point and will be graded lar
 ```{r}
 outlier_detector = function(m) {
   s = sd(m)
+  meantemp = mean(m)
+  a1 = 3*s + meantemp
+  s2 = meantemp - 3*s
+  
   Q1 = quantile(x, 0.25)
   Q3 = quantile(x, 0.75)
   t = Q3 - Q1
+  b1 = Q1 - 1.5 * t
+  b2 = Q3 + 1.5 * t
+  
   x = median(m)
   st = 1.4826 * median(abs(m - x))
-  meantemp = mean(m)
-  c(3*s + meantemp, meantemp - 3*s, Q1 - 1.5 * t, Q3 + 1.5 * t, x + 3 * st, x - 3 * st)
+  c1 = x + 3 * st
+  c2 = x - 3 * st
+ 
+  
+  c(a1,a2 ,b1, b2, c1, c2)
 }
 ```
 

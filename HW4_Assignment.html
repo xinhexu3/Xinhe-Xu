@@ -9,6 +9,7 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Xinhe Xu" />
 
 
 <title>STAT 385 HW4</title>
@@ -184,6 +185,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">STAT 385 HW4</h1>
+<h4 class="author"><em>Xinhe Xu</em></h4>
 <h4 class="date"><em>Due by 12:00 PM on 10/26/2019</em></h4>
 
 </div>
@@ -206,20 +208,14 @@ $(document).ready(function () {
   }
   return (m)
 }</code></pre>
-<pre class="r"><code>testa = data.frame(x = 10:20, y = 30:40)
+<pre class="r"><code>testa = data.frame(x = 1:5, y = c(3.1, 5, 7.2,10,9))
 scaler(testa)</code></pre>
-<pre><code>##             x          y
-## 1  -1.5075567 -1.5075567
-## 2  -1.2060454 -1.2060454
-## 3  -0.9045340 -0.9045340
-## 4  -0.6030227 -0.6030227
-## 5  -0.3015113 -0.3015113
-## 6   0.0000000  0.0000000
-## 7   0.3015113  0.3015113
-## 8   0.6030227  0.6030227
-## 9   0.9045340  0.9045340
-## 10  1.2060454  1.2060454
-## 11  1.5075567  1.5075567</code></pre>
+<pre><code>##            x          y
+## 1 -1.2649111 -1.3262147
+## 2 -0.6324555 -0.6560530
+## 3  0.0000000  0.1199237
+## 4  0.6324555  1.1075304
+## 5  1.2649111  0.7548137</code></pre>
 <pre class="r"><code>testb = data.frame(x = letters[1:13], y = letters[14:26])
 scaler(testb)</code></pre>
 <pre><code>##    x y
@@ -449,13 +445,23 @@ text(x=6000, y=14000,
 </ol>
 <pre class="r"><code>outlier_detector = function(m) {
   s = sd(m)
+  meantemp = mean(m)
+  a1 = 3*s + meantemp
+  s2 = meantemp - 3*s
+  
   Q1 = quantile(x, 0.25)
   Q3 = quantile(x, 0.75)
   t = Q3 - Q1
+  b1 = Q1 - 1.5 * t
+  b2 = Q3 + 1.5 * t
+  
   x = median(m)
   st = 1.4826 * median(abs(m - x))
-  meantemp = mean(m)
-  c(3*s + meantemp, meantemp - 3*s, Q1 - 1.5 * t, Q3 + 1.5 * t, x + 3 * st, x - 3 * st)
+  c1 = x + 3 * st
+  c2 = x - 3 * st
+ 
+  
+  c(a1,a2 ,b1, b2, c1, c2)
 }</code></pre>
 <ol style="list-style-type: lower-alpha">
 <li><p>3 Sigma Rule <span class="math inline">\(|x-\bar{x}|&gt;3 \cdot \hat{\sigma}\)</span></p></li>
