@@ -1,0 +1,243 @@
+---
+title: "STAT 385 HW4"
+author: ""
+date: "Due by 12:00 PM on 10/26/2019"
+output: html_document
+---
+
+
+## HW 4 Problems
+
+Below you will find problems for you to complete as an individual. It is fine to discuss the homework problems with classmates, but cheating is prohibited and will be harshly penalized if detected.
+
+### 1. Modify the scaler function in the Week 7 notes.
+
+We created a function called `scalar` in the Week 7 Notes. This function takes a numeric or integer vector as an input (check this on your own) and it outputs the scaled numeric or integer vectors as an output. Make a new version of this function that 1) takes a dataframe as an argument 2) scales all of the numeric and integer-valued columns of that dataframe while leaving all other variables alone 3) returns the original dataframe with scaled numeric and integer-valued columns. Verify that your function is working by testing it on two dataframes. The first dataframe can be anything that you want. The second dataframe should consist of only factor variables, i.e. the function should do nothing to this dataframe and also should not output an error message. Your verification checks should be readable, do not simply report the returned dataframes.
+```{r}
+scaler <- function(m) {
+  if (!class(m) %in% c("data.frame")) {
+    return (m)
+  }
+  for(i in 1:ncol(m)) {
+    if(class(m[, i]) %in% c("integer", "numeric")){
+       m[, i] = (m[,i] - mean(m[,i])) / sd(m[,i])
+    }
+  }
+  return (m)
+}
+```
+```{r}
+testa = data.frame(x = 10:20, y = 30:40)
+scaler(testa)
+testb = data.frame(x = letters[1:13], y = letters[14:26])
+scaler(testb)
+```
+
+
+### 2. Using the Chicago Food Inspections Data, do the following:
+```{r}
+fooddata <- read.csv("/Users/mac/Desktop/stat385/xinhexu2/Food_Inspections.csv", stringsAsFactors = FALSE)
+```
+
+a. create a visualization (plot) of at least two variables using this dataset
+```{r}
+plot(fooddata$Latitude, fooddata$Longitude,main="Chicago food store inspection situation", ylab = "The Longitude of the location", xlab="The Latitude of the location", cex = 0.2)
+```
+
+b. explain what is good and what is bad about the visualization
+```{r}
+#good:It can create plot picture by using the data which is convenient to analysis. Besides, I get the location of each restaurant
+#bad:I need to provide a magazine with data analysis about the recommended user food stores. I want to analyze the distribution of the food stores in Chicago and check if it passes. At the same time, choosing the best place to eat for the user. Thus, I want to summary the data of Chicago food store inspection situation. I cannot get the information which food store pass the inspection situation and which food store fail the inspection situation. Besides, I cannot clearly find the best place for user to eat.  
+```
+
+c. show a substantially improved visualization
+```{r}
+plot(fooddata$Latitude, fooddata$Longitude, ,main="Chicago food store inspection situation", ylab = "The Longitude of the location", xlab="The Latitude of the location", cex = 0.1)
+points(fooddata$Latitude[fooddata$Results == "Fail" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019") ], 
+       fooddata$Longitude[fooddata$Results == "Fail" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019")], 
+       cex = 0.2, col="blue", pch = 1)
+points(fooddata$Latitude[fooddata$Results == "Out of Business" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019")], 
+       fooddata$Longitude[fooddata$Results == "Out of Business" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019")], 
+       
+       cex = 0.2, col="red", pch = 2)
+points(fooddata$Latitude[fooddata$Results == "Pass" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019")], 
+       fooddata$Longitude[fooddata$Results == "Pass" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019")], 
+       cex = 0.2, col="green", pch = 0)
+legend(y = -87.8,x = 41.7, legend = c("Pass", "Fail", "out of business"), col = c("green", "blue", "red"), lty = 2, cex = 0.5)
+```
+
+d. describe the improvement and why the improved plot in part **c** helps the reader/viewer more than the original plot in part **a**.
+```{r}
+# I add some specific information from the result into the plot. Besides, I change the color. For the store which has pass the inspection, I use the green. For the store which is fail inspection, I use the red color. Besides, for the store out of business, I use the blue color. I think it is more clearly for us to find the "pass"" store. Thus, we will know the location of the food store which is pass the inspection. It can be recommended for user.
+```
+
+
+### 3. Using the Chicago Food Inspections Data, do the following:
+
+a. create a table of descriptive statistics of your choice
+```{r}
+library("tibble")
+mean1 = mean(na.omit(fooddata$Latitude[fooddata$Results == "Pass"]))
+mean2 = mean(na.omit(fooddata$Longitude[fooddata$Results == "Pass"]))
+max1 = max(na.omit(fooddata$Longitude[fooddata$Results == "Pass"]))
+max2 = max(na.omit(fooddata$Longitude[fooddata$Results == "Pass"]))
+min1 = min(na.omit(fooddata$Longitude[fooddata$Results == "Pass"]))
+min2 = min(na.omit(fooddata$Longitude[fooddata$Results == "Pass"]))
+mydata <- tibble(
+  name = c("longitude", "latitude"),
+  mean = c(mean1, mean2),
+  max = c(max1, max2),
+  min = c(min1, min2)
+)
+knitr::kable(mydata)
+```
+
+b. add one descriptive statistic to the plot in part **1c**
+```{r}
+
+plot(fooddata$Latitude, fooddata$Longitude, ,main="Chicago food store inspection situation", ylab = "The Longitude of the location", xlab="The Latitude of the location", cex = 0.2)
+points(fooddata$Latitude[fooddata$Results == "Fail" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019") ], 
+       fooddata$Longitude[fooddata$Results == "Fail" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019")], 
+       cex = 0.2, col="blue", pch = 1)
+points(fooddata$Latitude[fooddata$Results == "Out of Business" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019")], 
+       fooddata$Longitude[fooddata$Results == "Out of Business" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019")], 
+       cex = 0.2, col="red", pch = 2)
+points(fooddata$Latitude[fooddata$Results == "Pass" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019")], 
+       fooddata$Longitude[fooddata$Results == "Pass" & fooddata$Inspection.Date >= ("05/01/2019") & fooddata$Inspection.Date <= ("05/31/2019")], 
+       cex = 0.2, col="green", pch = 0)
+abline(v= mean(na.omit(fooddata$Latitude[fooddata$Results == "Pass"])), col="yellow")
+abline(h= mean(na.omit(fooddata$Longitude[fooddata$Results == "Pass"])), col = "pink")
+legend(y = -87.8,x = 41.7, legend = c("Pass", "Fail", "out of business"), col = c("green", "blue", "red"), lty = 2, cex = 0.5)
+legend(y = -87.85,x = 41.7, legend = c("mean of pass latitude", "mean of pass longitude"), col = c("yellow", "pink"), lty = 2, cex = 0.5)
+```
+
+c. write a brief explanatory narrative of the visualization in part **2b**. In your explanation, be convincing and persuasive about your visualization. Attempt to highlight why this visualization is crucial to your imaginary supervisor.
+```{r}
+# I add two line in the plot. The intersection represent the mean of longitude and latitude for a restaurant which pass the inspection. From this information, we can conclude where has the largest number of food stores that pass the inspection in Chicago. This allows us to figure out which area is safest to eat in Chicago. Thus, we can recommend the users, this area is a better choice for them to buy food.
+```
+
+### 4. Using the SBA Business Loans Data, do the following:
+```{r}
+sbadata <- read.csv("https://uofi.box.com/shared/static/vi37omgitiaa2yyplrom779qvwk1g14x.csv")
+```
+
+a. Create a visualization (plot) of at least two variables using this dataset
+```{r}
+plot(as.numeric(sbadata$NoEmp), as.numeric(sbadata$SBA_Appv),
+        main = "Number of business employees influence on approved loan amount",
+        ylab = "Amount of approved loan by SBA", 
+        xlab= "Number of business employees",
+        cex = 0.5)
+```
+
+b. explain what is good and what is bad about the visualization
+```{r}
+# good: This plot shows the relationship between the loan guarantee amount approved by abs and the number of business employees.
+#bad: Separately investigating the influence of a variable on the approval of the loan guarantee amount for abs is not accurate, so I chose to add several new variable. NewExist to see if the existing business would affect Amount of approved loan by SBA. Besides, I cannot get the trence of the relationship between the loan guarantee amount approved by abs and the number of business employees. So I want to add a regression line
+
+```
+
+c. show a substantially improved visualization
+```{r}
+plot(as.numeric(sbadata$NoEmp), as.numeric(sbadata$SBA_Appv),
+        main = "Number of business employees influence on approved loan amount",
+        ylab = "Amount of approved loan by SBA", 
+        xlab= "Number of business employees",
+        cex = 0.2)
+points(sbadata$NoEmp[sbadata$NewExist == 1], 
+       sbadata$SBA_Appv[sbadata$NewExist == 1], 
+       cex = 0.2, col="red", pch = 2)
+points(sbadata$NoEmp[sbadata$NewExist == 2], 
+       sbadata$SBA_Appv[sbadata$NewExist == 2],
+       cex = 0.2, col="green", pch = 1)
+abline(lm(sbadata$SBA_Appv ~ sbadata$NoEmp))
+```
+
+d. describe the improvement and why the improved plot in part **c** helps the reader/viewer more than the original plot in part **a**.
+```{r}
+#Obviously, we can see in the relationship between the loan guarantee amount approved by ABS and the number of business employees, and I also distinguished the impact of the current business and the business in the second year on Amount of approved loan by SBA. The company with this new business is green, and the company with next year's business is red
+```
+
+
+### 5. Using the SBA Business Loans Data, do the following:
+
+a. create a table of descriptive statistics of your choice
+```{r}
+medi0 = median(as.numeric(sbadata$SBA_Appv[which(sbadata$NewExist == 0)]))
+medi1 = median(as.numeric(sbadata$SBA_Appv[which(sbadata$NewExist == 1)]))
+medi2 = median(as.numeric(sbadata$SBA_Appv[which(sbadata$NewExist == 2)]))
+
+min0 = min(as.numeric(sbadata$SBA_Appv[which(sbadata$NewExist == 0)]))
+min1 = min(as.numeric(sbadata$SBA_Appv[which(sbadata$NewExist == 1)]))
+min2 = min(as.numeric(sbadata$SBA_Appv[which(sbadata$NewExist == 2)]))
+
+max0 = max(as.numeric(sbadata$SBA_Appv[which(sbadata$NewExist == 0)]))
+max1 = max(as.numeric(sbadata$SBA_Appv[which(sbadata$NewExist == 1)]))
+max2 = max(as.numeric(sbadata$SBA_Appv[which(sbadata$NewExist == 2)]))
+library("tibble")
+mydata <- tibble(
+  name = c("newexist0","newexist1", "newexist2"),
+  median_NewExist = c(medi0, medi1, medi2),
+  minimum_NewExist = c(min0, min1, min2),
+  maximum_NewExist = c(max0, max1,max2),
+)
+mydata
+```
+
+b. add one descriptive statistic to the plot in part **1c**
+```{r}
+plot(as.numeric(sbadata$NoEmp), as.numeric(sbadata$SBA_Appv),
+        main = "Number of business employees influence on approved loan amount",
+        ylab = "Amount of approved loan by SBA", 
+        xlab= "Number of business employees",
+        cex = 0.2)
+points(sbadata$NoEmp[sbadata$NewExist == 1], 
+       sbadata$SBA_Appv[sbadata$NewExist == 1], 
+       cex = 0.2, col="red", pch = 2)
+points(sbadata$NoEmp[sbadata$NewExist == 2], 
+       sbadata$SBA_Appv[sbadata$NewExist == 2],
+       cex = 0.2, col="green", pch = 1)
+abline(lm(sbadata$SBA_Appv ~ sbadata$NoEmp))
+text(x=6000, y=18000, 
+     "the Median Loan Amount which with Existing Business: $15751.0", col="black", cex = 0.5)
+text(x=6000, y=14000, 
+     "the Median Loan Amount which with new Business: $17894.0", col="blue", cex = 0.5)
+```
+
+c. write a brief explanatory narrative of the visualization in part **2b**. In your explanation, be convincing and persuasive about your visualization. Attempt to highlight why this visualization is crucial to your imaginary supervisor.
+```{r}
+#I suppose now for me to analyze the company whether can get the enough amount of loan in order to start a new project. Firstly, I analysis, company employees is influential for the loan amount approved, obviously through the regression line, number of employees is related to the amount of approved loan by SBA. Which means, the more employees of the company are more likely to get more loan. In # 3 b I've added a new variable is the company's business, clearly through comparing the existing business and now have a new business of the company's approved loan amount of median. I can safely conclude that companies with a new business can get bigger loan approvals.
+```
+
+
+## Select in-class tasks
+	
+Completion of select in-class tasks will be worth 1 point and will be graded largely by completion. Obvious errors and incomplete work will recieve deductions. 
+
+1. Explain what the Riemannian sums simulator in Example 5b of the Week 7 Notes is doing. Why does it work reasonably well? Can you cook up an example where it will not work while keeping $n = 10000$ (Hint: think of the relationship between $a$, $b$, and $n$)?
+```{r}
+# 1.The Riemannian sums simulator in Example 5b is ordering to calculate an area of a rectangle to estimate the result of the integral(from $a to $b). It divides the integral(from $a to $b) to n parts. Then, using the function to calculate the area of one part, which is a rectangle. After that, adding all the parts' results, which can be similar to the integral. 2. If a = 1, b = 999999999 and we divide integral to 10000 parts, it still has more errors when we calculate.
+```
+
+2. Create a custom function that computes 3 different outlier detectors given a single vector of data. The function should return 6 cutoff values (2 for each outlier detector) from the following methods:
+```{r}
+outlier_detector = function(m) {
+  s = sd(m)
+  Q1 = quantile(x, 0.25)
+  Q3 = quantile(x, 0.75)
+  t = Q3 - Q1
+  x = median(m)
+  st = 1.4826 * median(abs(m - x))
+  meantemp = mean(m)
+  c(3*s + meantemp, meantemp - 3*s, Q1 - 1.5 * t, Q3 + 1.5 * t, x + 3 * st, x - 3 * st)
+}
+```
+
+a. 3 Sigma Rule $|x-\bar{x}|>3 \cdot \hat{\sigma}$ 
+  
+b. 1.5*IQR Rule $x<Q_1-1.5\cdot IQR$ or $x>Q_3+1.5 \cdot IQR$
+  
+c. Hampel Identifier $|x-\tilde{x}|> 3 \cdot \tilde{\sigma}$  
+      - $\tilde{x}$ is the median of $x$  
+      - $\tilde{\sigma}=1.4826 \cdot \textrm{median}\{|x-\tilde{x}|\}$ is the median of the absolute deviation from the median (MADM or MAD) scale estimate. 
+	
