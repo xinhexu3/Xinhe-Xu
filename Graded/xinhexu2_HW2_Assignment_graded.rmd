@@ -1,0 +1,250 @@
+---
+title: "STAT 385 Homework Assignment 02"
+author: "Xinhe Xu"
+NetID: "xinhexu2"
+date: "Due by 12:00 PM 09/28/2019"
+output: html_document
+---
+
+```{css echo=FALSE}
+.tacomments {
+  background-color: #00CFFF;
+}
+```
+
+```{remark class.source="tacomments"}
+Overall: 96%
+
+Efficiency[2pts]: 2.5
+Correctness[4pts]: 2.5
+Documentation[1pts]: 2.5
+Beauty[2pts]: 2.0
+
+See comments below for feedback. I may have numbers associated with my feedback. The higher the number the more signifciant the feedback.
+```
+
+```{remark class.source="tacomments"}
+[Misc] Please follow the file naming conventions listed in the syllabus
+```
+
+## The Homework Problems
+
+Below you will find problems for you to complete as an individual. It is fine to discuss the homework problems with classmates, but cheating is prohibited and will be harshly penalized if detected.
+
+### 1. Do the following:
+
+a. create two vectors labelled `x` and `y`, each with 500 elements.  You can do this any way you like.  Combine these vectors into a matrix called `mat`.  Run the command `head(mat)`.
+```{r}
+# 1,a
+x = rep(1:500)
+y = rep(1, 500)
+mat = cbind(x,y)
+head(mat)
+
+```
+
+b. run the command `z <- rep(c(1,3), each = 250)`.  Combine `mat` and `z`.  Convert the matrix `mat` with columns `x`, `y`, and `z` into a data frame called `dat`. 
+
+```{r}
+#1, b
+z <- rep(c(1,3), each = 250)
+newOne = cbind(mat,z)
+dat = as.data.frame(newOne)
+head(newOne)
+```
+
+c. reassign `z` as a factor variable within the data frame `dat`.  Run the command `str(dat)`.  You should see something like:
+```{r}
+#1.c
+dat$z = as.factor(dat$z)
+str(dat)
+```
+
+    'data.frame':	500 obs. of  3 variables:<br>
+    $ x: num  1.4176 1.25 -1.4528 -0.3946 0.0264 ...<br>
+    $ y: num  0.0736 -0.193 -0.3286 -0.9563 -0.1975 ...<br>
+    $ z: Factor w/ 2 levels "1","3": 1 1 1 1 1 1 1 1 1 1 ...
+
+d. run the following commands:
+
+```{r, eval=FALSE}
+2 + dat$z
+2 + as.numeric(dat$z)
+2 + as.numeric(levels(dat$z)[dat$z])
+# z isn't numeric,so it cannot be added to other numeric variables.Thats why the first line has a warnning message.
+# the second and third lines dat$z and levels(dat$z)[dat$z]) is numeric, so they can added to numeric variables.
+# The Third line added 2 to the levels of the factor variable `z`.Since levels(dat$z)[dat$z] means the component of z, which has already change to numeric, z has two levels, one of it level includes 250 "1", another level includes 250 "3". so the result of third line is 250 "3" and 250"5".
+```
+
+Carefully describe why the first line returned a warning message and both the second and third lines      did not.  Which of the three lines properly added 2 to the levels of the factor variable `z`? Why?
+
+e. remove the rows of `dat` corresponding to lowest 100 values of `x`.
+```{r}
+#1.e
+numberhund = sort.default(dat$x)[100]
+i= dat[which(dat$x > numberhund),]
+dat = i
+head(dat)
+```
+
+```{remark class.source="tacomments"}
+[Efficiency 1] Indirect approach versus using ORDER. e.g. dat[-order(dat$x)[1:100],]
+```
+
+### 2. With the `dat` dataset in problem 1, do the following:
+
+a. run the commands:
+
+```{r, eval=FALSE}
+#2a
+set.seed(13)
+e <- rnorm(400)
+dat$x <- rnorm(400)
+dat$y <- dat$x * 2 + as.numeric(levels(dat$z)[dat$z]) + e
+zlist <- split(dat, f = dat$z)
+mean(dat$y[dat$z == '1'])
+mean(dat$y[dat$z == '3'])
+# the level'3' is 3.017832 which has a higher mean in'y' than the level '1'.The the mean of level '1' is 0.9426005
+```
+
+```{remark class.source="tacomments"}
+[Efficiency 0] It's even better to use zlist here
+```
+
+```{remark class.source="tacomments"}
+[Beauty 1] For readability, it's better to use df[rows, cols] versus df$cols[rows]
+```
+
+Determine which level of `z` has a higher mean in `y`.  Report your results.
+
+b.  The fourth line of the code in part a generates `y` as a linear function of the numeric variable `x` and the factor variable `z`.  Can you determine that the linear modeling assumptions are satisfied for the regression of `y` on `x` and `z`? Explain why or why not in detail. **Hint**: read the documentation of the `rnorm` function and examine its defaults.  The linear modeling assumptions are: 1) there is a linear relationship between the response variable and the predictor variables; 2) there is no auto-correlation (cases are independent); 3) errors are normally distributed; 4) the standard deviation of the errors are constant across all predictor variables (the values of `x` and the levels of `z` in this problem).  There is no need to use numerical or graphical summaries to verify whether or not these modeling assumptions hold, all of the necessary information is contained in the code chunk in part **a**.
+```{r}
+?rnorm
+# The linear modeling assumptions are satisfied for the regression of `y` on `x` and `z`. 1) since the code  "dat$y <- dat$x * 2 + as.numeric(levels(dat$z)[dat$z]) + e " means "y = 2x + z + error, which represent a linear relationship between the response variable and predictor variables. 2) x is a random sample , x's means  is 0 sd is 1, and errors' mean and sd are aloway equal to 1, and the z has two level, so these three variables are independent with each other. That's why x isn't auto-correlation. 3)since error's mean is 1, sd is 1, the error is normal distribution. 4)since the sd of errors is always 1, which is unrelated with other variables, so the standard deviation of the errors are constant across all predictor variables.
+```
+
+```{remark class.source="tacomments"}
+[Correctness 1] Autocorrelation is about correlation between observations not the columns
+```
+
+### 3. Using functions, lists, matrices and vectors, complete the following:
+
+a. place the first 5 letters of the alphabet into a list
+```{r}
+#3，a
+newList <- list("a", "b", "c", "d", "e")
+newList
+```
+
+```{remark class.source="tacomments"}
+[Beauty 0] Did you know that 'letters' are a preprogrammed variable?
+```
+
+b. place a random set of 2 integers as a new component of the list made in part **a**  
+```{r}
+newA = sample(1:1000, 2, replace = TRUE)
+newB = list(newA)
+list1 =append(newB, newList)
+list1
+```
+
+c. create a matrix with two columns such that column 1 contains the 5 letters repeating, column 2 contains the 2 integers repeating, and column 3 that shows all possible pairs of the elements of the first 2 columns  
+```{r}
+newLista = rep(newList, 2)
+newAa = rep(newA, 5)
+newc = paste(newLista,newAa)
+ma = cbind(newLista, newAa, newc)
+ma
+```
+
+d. add a 4th column to the matrix from part **c** that is a randomized ordering of the pairs of the 3rd column
+```{r}
+newc1 = sample(newc)
+newMa = cbind(ma, newc1)
+newMa
+```
+
+
+### 4. Use the CCSO Bookings Data to accomplish the following:
+
+a. read in the data using R's default method for comma separated files and show the data dimension
+```{r}
+MyData = read.csv(file="/Users/mac/Desktop/CCSO Data.csv")
+dim(MyData)
+```
+
+
+b. show only the 2012 bookings for people ages 17-23 years old not residing in Illinois and show the data dimension
+```{r}
+library(tidyverse)
+MyData$BOOKING.DATE = as.Date(MyData$BOOKING.DATE, format = "%m/%d/%Y")
+student1 = filter(MyData, BOOKING.DATE >= as.Date("2012-01-01") & BOOKING.DATE <= as.Date("2012-12-31")
+           & Age.at.Arrest >= 17 & Age.at.Arrest <= 23
+           & STATE != "ILLINOIS")
+dim(student1)
+```
+
+c. show only the bookings for people who have employment status as "student" booked after the year 2012 residing in Danville and show the data dimension
+```{r}
+student2 = filter(MyData, EMPLOYMENT.STATUS == "Student"
+                  & BOOKING.DATE > "2012-12-31"
+                  & CITY == "DANVILLE")
+dim(student2)
+```
+
+d. show only the bookings for Asian people residing in the cities of Champaign or Urbana and show the data dimension
+
+```{r}
+AsianPeople = filter(MyData, RACE == "Asian/Pacific Islander"
+                     & (CITY == "CHAMPAIGN" | CITY == "URBANA"))
+dim(AsianPeople)
+```
+
+```{remark class.source="tacomments"}
+[Beauty 0]
+* More readable as ccso_data$CITY  c("CHAMPAIGN","URBANA").
+```
+
+### 5. Use the CCSO Bookings Data to accomplish the following:
+
+a. read in the data using the **data.table** package and show the data dimension
+```{r}
+library(data.table)
+newData <- fread("/Users/mac/Desktop/CCSO Data.csv")
+dim(newData)
+```
+
+```{remark class.source="tacomments"}
+[Beauty 0] Having to put quotes around all of your variables is a pain. It's more elegant to rename the columns to remove the spaces. e.g. colnames(ccso_data2) <- gsub(" ",".", colnames(ccso_data2))
+```
+
+b. show only the 2012 bookings for people ages 17-23 years old not residing in Illinois and show the data dimension
+```{r}
+newData$`BOOKING DATE` = as.Date(newData$`BOOKING DATE`, format = "%m/%d/%Y")
+newPeople1 = newData[newData$`BOOKING DATE` >= "2012-01-01" & newData$`BOOKING DATE` <= "2012-12-31"
+           & newData$`Age at Arrest` >= 17 & newData$`Age at Arrest` <= 23
+           & newData$STATE != "ILLINOIS"]
+dim(newPeople1)
+```
+
+```{remark class.source="tacomments"}
+[Beauty 3] One of the good thinkgs about data.table is you can drop the newdata$
+```
+
+c. show only the bookings for people who have employment status as "student" booked after the year 2012 residing in Danville and show the data dimension
+```{r}
+newPeople2 = newData[newData$`EMPLOYMENT STATUS` == "Student"
+           & newData$`BOOKING DATE` > ("2012-12-31")
+           & newData$`CITY` == "DANVILLE"]
+dim(newPeople2)
+```
+
+
+
+d. show only the bookings for Asian people residing in the cities of Champaign or Urbana and show the data dimension
+```{r}
+newPeople3 = newData[newData$`RACE` == "Asian/Pacific Islander"
+           & (newData$`CITY` == "CHAMPAIGN" | newData$`CITY` == "URBANA")]
+dim(newPeople3)
+```
+
