@@ -1,0 +1,52 @@
+---
+title: "Final Project Proposal"
+author: "Eva Hu, Xinhe Xu, Ning Wan, Kaiwei Xiao, Yi Li"
+date: "11/30/2019"
+output: html_document
+---
+
+
+Group members’ names: Xinhe Xu (xinhexu2), Ning Wan (ningwan2), Eva Hu (yifanhu6), Kaiwei Xiao (kaiweix2), Yi Li (yil7)
+
+
+Tentative title of the project: FDA strategic inspection plan of Chicago area in year 2020
+
+
+The dataset: Chicago Food Inspections
+
+The dataset includes the places serving food such as grocery stores, bakeries, restaurants and school cafeterias across Chicago city. These establishments pass, fail or have certain conditions related with passing the inspection. The dataset also indicates the risk levels and exact locations of the food stations with violation records. The original source is the City of Chicago Data Portal. 
+https://data.cityofchicago.org/Health-Human-Services/Food-Inspections/4ijn-s7e5/
+```{r}
+CFI = read.csv("/Users/mac/Desktop/stat385/xinhexu2/Food_Inspections.csv")
+#View(CFI)
+```
+
+
+Summary of the intentions and goals of the project: 
+As the data analysts of U.S. Food and Drug Administration (FDA), in order to improve the pertinency and efficiency of FDA inspection of Chicago area in year 2020, we make an analysis of city food stations based on historical risk levels, business type (license ID), inspection results and violation records.
+
+
+Storyboard: 
+
+Issue: People frequently report food security problems of Chicago food stations to FDA.
+
+
+Demonstrate issue (Shiny app appearance): 
+We will calculate the violation frequencies of different merchants, showing the line chart of repeating business types of offenders (by license ID) with merchants as x axes and frequencies as y axes. 
+We will also categorize different violation types, displaying the histograms on frequencies of appearance of each type with violation types as x axes and frequencies as y axes. 
+
+
+Description of program: 
+We will conduct abrupt inspection of high-risk-centralized area, investigating the food stations according to risk levels from high to low. 
+FDA will have a second focused inspection on specific merchants that had most violation records after all inspections. 
+And we will compare the most frequently happened violation types of 2020 with that of 2019. 
+This campaign aims at reducing the neglected food security issues of 2019 in the coming year and discover the changing trend of violation types. 
+
+
+Demonstrate success of program (Shiny app appearance): 
+We will visualize a map on distribution of different risk levels and inspection results of Chicago food stations. (etc. triangle = pass, circle = fail, red = risk 3, yellow = risk 2, grey = risk 1). The latitude and longitude can be modified to locate a certain area, which is convenient for analyzing the risk level of that area. 
+We will also indicate the peaks of violation frequencies of different merchants and frequencies of appearance of each violation type. This will be helpful for FDA to inspect concentratedly on the merchant which has most violation records and the regulation which is violated by most merchants. 
+
+
+Shiny app appearance:
+![](/Users/mac/Desktop/project.png)
