@@ -1,0 +1,18 @@
+---
+title: "chicago"
+author: "Xinhe Xu"
+date: "2019/12/13"
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(dplyr)
+FOOD <- table(food$`License #`,food$Results)
+vio <- data.frame(FOOD)
+colnames(vio) <- c("License", "Results","Freq")
+vio <- filter(vio,Results == "Fail", License != "0")
+
+shinyApp(ui, server)
+```
+
+
