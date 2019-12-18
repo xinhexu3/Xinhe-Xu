@@ -1,0 +1,12 @@
+name: chicago_food
+title: chicago_food
+username:
+account: xinhexu111
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1608588
+bundleId: 2678344
+url: https://xinhexu111.shinyapps.io/chicago_food/
+when: 1576678916.12616
+asMultiple: FALSE
+asStatic: FALSE
