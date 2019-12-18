@@ -1,6 +1,6 @@
 ---
 title: "chicago"
-author: "Xinhe Xu"
+author: "Xinhe Xu, Ning Wan, Yifan Hu, Yi Li, Kaiwei Xiao"
 date: "2019/12/13"
 output: html_document
 ---
